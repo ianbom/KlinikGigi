@@ -21,7 +21,7 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ i
             <DoctorProfileHeader doctor={doctor} />
             <BookingCalendar doctor={doctor} doctorId={id} />
             <div className="h-20"></div>
-            <StickyBookingBar doctorId={id} price={doctor.price} />
+            {/* <StickyBookingBar doctorId={id} price={doctor.price} /> */}
         </div>
     );
 }
