@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dental Clinic Colors */
+  --primary: #0da2e7;
+  --primary-dark: #0a8bc7;
+
+  --background-light: #f8fbfc;
+  --background-dark: #101c22;
+  /* Kept for reference but primarily using light */
+
+  --text-light: #0d171c;
+  --text-dark: #f8fbfc;
+
+  --subtle-light: #e7f0f4;
+  --subtle-dark: #1e2a30;
+
+  /* Mapping standard Tailwind utilitarian names to our tokens if desired, 
+     but we will mostly use the custom specific names to match HTML */
+  --background: var(--background-light);
+  --foreground: var(--text-light);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+
+  --color-background-light: var(--background-light);
+  --color-background-dark: var(--background-dark);
+
+  --color-text-light: var(--text-light);
+  --color-text-dark: var(--text-dark);
+
+  --color-subtle-light: var(--subtle-light);
+  --color-subtle-dark: var(--subtle-dark);
+
+  /* Font */
+  --font-display: var(--font-inter), "Inter", sans-serif;
+
+  /* Border Radius from HTML config */
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-light);
+  font-family: var(--font-display);
+}
+
+/* Custom Utilities */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
