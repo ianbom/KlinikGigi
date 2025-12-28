@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "./components/layout/Navbar";
-import { Footer } from "./components/layout/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
   title: "Dental Clinic - Senyum Sehat, Hidup Bahagia",
   description: "Dapatkan perawatan gigi profesional dengan dokter ahli. Proses booking yang mudah melalui WhatsApp dan sistem pembayaran yang aman.",
   icons: {
-    icon: "/favicon.ico", // Assuming default or updated later
+    icon: "/favicon.ico",
   }
 };
 
@@ -29,9 +27,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
       </head>
       <body className={`${inter.variable} bg-background-light text-text-light font-display antialiased`}>
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
