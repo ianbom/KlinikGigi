@@ -19,7 +19,7 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ i
     return (
         <div className="flex-grow w-full max-w-[960px] mx-auto px-4 py-8 pb-24 font-display">
             <DoctorProfileHeader doctor={doctor} />
-            <BookingCalendar />
+            <BookingCalendar doctor={doctor} doctorId={id} />
             <div className="h-20"></div>
             <StickyBookingBar doctorId={id} price={doctor.price} />
         </div>

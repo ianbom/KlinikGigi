@@ -9,7 +9,11 @@ export interface Doctor {
     reviews: number;
     location: string;
     days: string;
+    practiceHours: string;
     price: string;
+    profile: string;
+    education: string;
+    experience: string;
     badge: {
         text: string;
         colorClass: string;

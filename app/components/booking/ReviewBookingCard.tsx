@@ -1,10 +1,15 @@
+"use client";
+
 import { Doctor } from "@/lib/doctors";
+import { useBooking } from "@/context/BookingContext";
 
 interface ReviewBookingCardProps {
     doctor?: Doctor;
 }
 
 export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
+    const { bookingData } = useBooking();
+
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             {/* Card Header */}
@@ -41,7 +46,9 @@ export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
                             <span className="material-symbols-outlined text-[18px]">calendar_today</span>
                             <span>Tanggal</span>
                         </div>
-                        <p className="font-medium text-text-light pl-7">Senin, 24 Oktober 2023</p>
+                        <p className="font-medium text-text-light pl-7">
+                            {bookingData.selectedDate || "Senin, 24 Oktober 2023"}
+                        </p>
                     </div>
                     {/* Time */}
                     <div className="group">
@@ -49,7 +56,9 @@ export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
                             <span className="material-symbols-outlined text-[18px]">schedule</span>
                             <span>Waktu</span>
                         </div>
-                        <p className="font-medium text-text-light pl-7">14:00 WIB</p>
+                        <p className="font-medium text-text-light pl-7">
+                            {bookingData.selectedTime || "14:00 WIB"}
+                        </p>
                     </div>
                     {/* Patient Name */}
                     <div className="group">
@@ -57,7 +66,19 @@ export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
                             <span className="material-symbols-outlined text-[18px]">person</span>
                             <span>Nama Pasien</span>
                         </div>
-                        <p className="font-medium text-text-light pl-7">Budi Utomo</p>
+                        <p className="font-medium text-text-light pl-7">
+                            {bookingData.fullName || "-"}
+                        </p>
+                    </div>
+                    {/* NIK */}
+                    <div className="group">
+                        <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                            <span className="material-symbols-outlined text-[18px]">badge</span>
+                            <span>NIK</span>
+                        </div>
+                        <p className="font-medium text-text-light pl-7">
+                            {bookingData.nik || "-"}
+                        </p>
                     </div>
                     {/* WhatsApp */}
                     <div className="group">
@@ -66,17 +87,23 @@ export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
                             <span>Nomor WhatsApp</span>
                         </div>
                         <div className="flex items-center gap-2 pl-7">
-                            <p className="font-medium text-text-light">+62 812-3456-7890</p>
-                            <span className="material-symbols-outlined text-green-500 text-[18px]" title="Verified">verified</span>
+                            <p className="font-medium text-text-light">
+                                {bookingData.whatsapp ? `+62 ${bookingData.whatsapp}` : "-"}
+                            </p>
+                            {bookingData.whatsapp && (
+                                <span className="material-symbols-outlined text-green-500 text-[18px]" title="Verified">verified</span>
+                            )}
                         </div>
                     </div>
                     {/* Email */}
-                    <div className="group sm:col-span-2">
+                    <div className="group">
                         <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
                             <span className="material-symbols-outlined text-[18px]">mail</span>
                             <span>Email</span>
                         </div>
-                        <p className="font-medium text-text-light pl-7">budi@example.com</p>
+                        <p className="font-medium text-text-light pl-7">
+                            {bookingData.email || "-"}
+                        </p>
                     </div>
                     {/* Complaint */}
                     <div className="group sm:col-span-2">
@@ -85,7 +112,9 @@ export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
                             <span>Keluhan</span>
                         </div>
                         <div className="pl-7">
-                            <p className="font-medium text-text-light">Gigi terasa ngilu saat minum dingin</p>
+                            <p className="font-medium text-text-light">
+                                {bookingData.complaint || "-"}
+                            </p>
                         </div>
                     </div>
                 </div>

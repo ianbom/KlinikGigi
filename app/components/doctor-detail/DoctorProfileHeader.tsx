@@ -46,7 +46,7 @@ export function DoctorProfileHeader({ doctor }: DoctorProfileHeaderProps) {
                 </div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-subtle-light">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8 pt-6 border-t border-subtle-light text-center ">
                     <div className="flex flex-col gap-1">
                         <span className="text-2xl font-bold text-text-light">10 Thn</span>
                         <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Pengalaman</span>
@@ -59,10 +59,10 @@ export function DoctorProfileHeader({ doctor }: DoctorProfileHeaderProps) {
                         <span className="text-2xl font-bold text-text-light">500+</span>
                         <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Pasien</span>
                     </div>
-                    <div className="flex flex-col gap-1">
+                    {/* <div className="flex flex-col gap-1">
                         <span className="text-2xl font-bold text-primary">{doctor.price}</span>
                         <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Mulai Dari</span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

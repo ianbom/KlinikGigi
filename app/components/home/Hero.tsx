@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Hero() {
     return (
         <section className="relative pt-16 pb-20 lg:pt-32 lg:pb-28 overflow-hidden">
@@ -22,9 +24,12 @@ export function Hero() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
-                            <button className="flex items-center justify-center h-12 px-8 rounded-lg bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-lg shadow-primary/25 transition-all w-full sm:w-auto cursor-pointer">
-                                Booking Sekarang
-                            </button>
+                            <Link href={'/doctors'}>
+                                <button className="flex items-center justify-center h-12 px-8 rounded-lg bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-lg shadow-primary/25 transition-all w-full sm:w-auto cursor-pointer">
+                                    Booking Sekarang
+                                </button>
+                            </Link>
+                            
                             <button className="flex items-center justify-center h-12 px-8 rounded-lg border border-subtle-light hover:bg-subtle-light text-text-light text-base font-medium transition-all w-full sm:w-auto cursor-pointer">
                                 <span className="material-symbols-outlined mr-2 text-primary">play_circle</span>
                                 Lihat Tur Klinik

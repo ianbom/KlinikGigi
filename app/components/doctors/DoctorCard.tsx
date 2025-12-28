@@ -1,77 +1,64 @@
 import Link from "next/link";
-
-interface Doctor {
-    id: number;
-    name: string;
-    specialty: string;
-    image: string;
-    rating: number;
-    reviews: number;
-    location: string;
-    days: string;
-    price: string;
-    badge: {
-        text: string;
-        colorClass: string; // e.g., "bg-blue-50 text-blue-700"
-        dotClass?: string; // e.g. "bg-green-500"
-    };
-}
+import { Doctor } from "@/lib/doctors";
 
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
     return (
-        <div className="group bg-white rounded-2xl border border-subtle-light p-5 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300 flex flex-col">
-            <div className="flex items-start gap-4 mb-4">
-                <div className="relative">
-                    <img
-                        alt={doctor.name}
-                        className="w-20 h-20 rounded-xl object-cover border border-subtle-light"
-                        src={doctor.image}
-                    />
-                    {doctor.badge.dotClass && (
-                        <div className={`absolute -bottom-1 -right-1 border-2 border-white w-4 h-4 rounded-full ${doctor.badge.dotClass}`}></div>
-                    )}
+        <div className="group bg-white rounded-2xl border border-subtle-light overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300 flex flex-col">
+            {/* Image Header */}
+            <div className="relative h-48 bg-gray-100">
+                <img
+                    alt={doctor.name}
+                    className="w-full h-full object-cover"
+                    src={doctor.image}
+                />
+                {/* Badge */}
+                <div className="absolute top-3 left-3">
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${doctor.badge.colorClass}`}>
+                        {doctor.badge.text}
+                    </span>
                 </div>
-                <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mb-1 ${doctor.badge.colorClass}`}>
-                            {doctor.badge.text}
-                        </span>
-                        <button className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer">
-                            <span className="material-symbols-outlined text-[20px]">favorite</span>
-                        </button>
+                {/* Favorite Button */}
+                <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white transition-all cursor-pointer shadow-sm">
+                    <span className="material-symbols-outlined text-[18px]">favorite</span>
+                </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-5 flex flex-col flex-1">
+                {/* Doctor Info */}
+                <div className="mb-4">
+                    <h3 className="font-bold text-lg text-text-light mb-1 group-hover:text-primary transition-colors">
+                        {doctor.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">{doctor.specialty}</p>
+                </div>
+
+                {/* Details */}
+                <div className="space-y-2.5 mb-5">
+                    <div className="flex items-center gap-2.5 text-sm">
+                        <span className="material-symbols-outlined text-primary text-[18px]">location_on</span>
+                        <span className="text-gray-600">{doctor.location}</span>
                     </div>
-                    <h3 className="font-bold text-lg text-text-light truncate">{doctor.name}</h3>
-                    <p className="text-sm text-gray-500 truncate">{doctor.specialty}</p>
+                    <div className="flex items-center gap-2.5 text-sm">
+                        <span className="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
+                        <span className="text-gray-600">{doctor.days}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm">
+                        <span className="material-symbols-outlined text-primary text-[18px]">schedule</span>
+                        <span className="text-gray-600">{doctor.practiceHours}</span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="space-y-3 mb-5">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="material-symbols-outlined text-yellow-400 text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="font-bold text-text-light">{doctor.rating}</span>
-                    <span className="text-gray-400">({doctor.reviews} Ulasan)</span>
+                {/* CTA Button */}
+                <div className="mt-auto">
+                    <Link
+                        href={`/doctors/${doctor.id}`}
+                        className="w-full bg-primary hover:bg-primary-dark text-white text-sm font-bold px-4 py-3 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-2 group/btn"
+                    >
+                        <span>Lihat Profil</span>
+                        <span className="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                    </Link>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="material-symbols-outlined text-gray-400 text-[18px]">location_on</span>
-                    <span>{doctor.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="material-symbols-outlined text-gray-400 text-[18px]">calendar_month</span>
-                    <span>{doctor.days}</span>
-                </div>
-            </div>
-
-            <div className="mt-auto pt-4 border-t border-subtle-light flex items-center justify-between">
-                <div>
-                    <p className="text-xs text-gray-500">Mulai dari</p>
-                    <p className="font-bold text-primary text-lg">{doctor.price}</p>
-                </div>
-                <Link
-                    href={`/doctors/${doctor.id}`}
-                    className="bg-primary hover:bg-primary-dark text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer inline-block text-center"
-                >
-                    Lihat Jadwal
-                </Link>
             </div>
         </div>
     );

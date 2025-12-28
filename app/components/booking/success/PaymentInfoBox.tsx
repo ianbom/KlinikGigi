@@ -4,7 +4,7 @@ export function PaymentInfoBox() {
             <span className="material-symbols-outlined text-primary mt-0.5">info</span>
             <div className="text-sm text-gray-700">
                 <p className="font-semibold mb-1 text-text-light">Informasi Pembayaran</p>
-                <p>Pembayaran dilakukan secara manual di klinik (Cash/QRIS/Debit) setelah perawatan selesai. Konfirmasi jadwal juga telah dikirimkan ke nomor WhatsApp Anda.</p>
+                <p>Pembayaran dilakukan secara manual di klinik setelah perawatan selesai. Konfirmasi jadwal juga telah dikirimkan ke nomor WhatsApp Anda.</p>
             </div>
         </div>
     );

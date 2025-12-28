@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function CTA() {
     return (
         <section className="py-20 bg-background-light">
@@ -11,9 +13,12 @@ export function CTA() {
                     <p className="relative text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">Jangan tunda kesehatan gigi Anda. Jadwalkan kunjungan Anda hari ini dengan mudah dan aman.</p>
 
                     <div className="relative flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button className="w-full sm:w-auto px-8 py-3 bg-white text-primary font-bold rounded-lg hover:bg-gray-50 transition-colors shadow-lg cursor-pointer">
-                            Booking Sekarang
-                        </button>
+                        <Link href={'/doctors'}>
+                            <button className="w-full sm:w-auto px-8 py-3 bg-white text-primary font-bold rounded-lg hover:bg-gray-50 transition-colors shadow-lg cursor-pointer">
+                                Booking Sekarang
+                            </button>
+                        </Link>
+                        
                         <button className="w-full sm:w-auto px-8 py-3 bg-transparent border border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
                             Konsultasi via WhatsApp
                         </button>

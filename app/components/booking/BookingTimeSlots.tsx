@@ -1,4 +1,29 @@
+"use client";
+
+import { useBooking } from "@/context/BookingContext";
+
+const timeSlots = [
+    { time: "08:00", available: true },
+    { time: "09:00", available: false },
+    { time: "10:00", available: true },
+    { time: "11:00", available: true },
+    { time: "13:00", available: true },
+    { time: "14:00", available: true },
+    { time: "15:00", available: false },
+    { time: "16:00", available: true },
+    { time: "17:00", available: true },
+    { time: "18:00", available: true },
+    { time: "19:00", available: true },
+    { time: "20:00", available: true },
+];
+
 export function BookingTimeSlots() {
+    const { bookingData, setBookingData } = useBooking();
+
+    const handleTimeSelect = (time: string) => {
+        setBookingData({ selectedTime: `${time} WIB` });
+    };
+
     return (
         <>
             <div className="flex items-center justify-between mb-6">
@@ -21,18 +46,42 @@ export function BookingTimeSlots() {
 
             {/* Time Slots Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">08:00</button>
-                <button className="py-2.5 px-4 rounded-lg bg-gray-100 text-gray-400 text-sm font-medium cursor-not-allowed line-through" disabled>09:00</button>
-                <button className="py-2.5 px-4 rounded-lg border-2 border-primary bg-primary/10 text-primary text-sm font-bold shadow-sm ring-1 ring-primary/20">10:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">11:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">13:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">14:00</button>
-                <button className="py-2.5 px-4 rounded-lg bg-gray-100 text-gray-400 text-sm font-medium cursor-not-allowed line-through" disabled>15:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">16:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">17:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">18:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">19:00</button>
-                <button className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white">20:00</button>
+                {timeSlots.map(slot => {
+                    const isSelected = bookingData.selectedTime === `${slot.time} WIB`;
+
+                    if (!slot.available) {
+                        return (
+                            <button
+                                key={slot.time}
+                                className="py-2.5 px-4 rounded-lg bg-gray-100 text-gray-400 text-sm font-medium cursor-not-allowed line-through"
+                                disabled
+                            >
+                                {slot.time}
+                            </button>
+                        );
+                    }
+
+                    if (isSelected) {
+                        return (
+                            <button
+                                key={slot.time}
+                                className="py-2.5 px-4 rounded-lg border-2 border-primary bg-primary/10 text-primary text-sm font-bold shadow-sm ring-1 ring-primary/20"
+                            >
+                                {slot.time}
+                            </button>
+                        );
+                    }
+
+                    return (
+                        <button
+                            key={slot.time}
+                            onClick={() => handleTimeSelect(slot.time)}
+                            className="py-2.5 px-4 rounded-lg border border-gray-200 text-gray-700 text-sm font-medium hover:border-primary hover:text-primary transition-all bg-white cursor-pointer"
+                        >
+                            {slot.time}
+                        </button>
+                    );
+                })}
             </div>
         </>
     );
