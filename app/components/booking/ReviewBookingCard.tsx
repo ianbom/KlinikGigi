@@ -1,4 +1,10 @@
-export function ReviewBookingCard() {
+import { Doctor } from "@/lib/doctors";
+
+interface ReviewBookingCardProps {
+    doctor?: Doctor;
+}
+
+export function ReviewBookingCard({ doctor }: ReviewBookingCardProps) {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             {/* Card Header */}
@@ -11,16 +17,16 @@ export function ReviewBookingCard() {
             <div className="p-6">
                 {/* Doctor & Service Highlight */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8 pb-8 border-b border-dashed border-gray-200">
-                    <div className="size-16 rounded-full bg-gray-100 overflow-hidden flex-shrink-0 relative">
+                    <div className="size-16 rounded-full bg-gray-100 overflow-hidden shrink-0 relative">
                         <div
                             className="w-full h-full bg-cover bg-center"
-                            style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVIYNFURx5wk70fucsDVezNaTHRE0tQyR9IUPnDlkUsD_zmNwkbtXqfvvaCcDf4Ue0z0Ja5U4i74ne0AQpm2i6FV6413VWAIvEhVy21_Fpr6B5Zf5UzdOf6kHMaBTDy4yipQNdvjZimgD7dgYo-Rk_i9MT-PujOf8fXW90rdejkHiggbN4qruwYTc7-1COc1riXfdscdfHykCwybH00Eb58lNXzK79rKZ5o-5nVffASRcfBe2P3IyI4xUSyCY9eMIPqz8-TquYIcGE")' }}
+                            style={{ backgroundImage: `url("${doctor?.image || ""}")` }}
                         ></div>
                     </div>
                     <div className="flex-1">
                         <p className="text-sm text-primary font-medium mb-1">Dokter Pilihan</p>
-                        <h4 className="text-lg font-bold text-text-light">Drg. Budi Santoso</h4>
-                        <p className="text-sm text-gray-500">Spesialis Konservasi Gigi</p>
+                        <h4 className="text-lg font-bold text-text-light">{doctor?.name || "Loading..."}</h4>
+                        <p className="text-sm text-gray-500">{doctor?.specialty || ""}</p>
                     </div>
                     <div className="mt-4 sm:mt-0 px-4 py-2 bg-primary/10 rounded-lg text-primary text-sm font-semibold">
                         Scaling Gigi

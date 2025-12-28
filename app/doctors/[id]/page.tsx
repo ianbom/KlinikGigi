@@ -1,19 +1,27 @@
 import { DoctorProfileHeader } from "@/app/components/doctor-detail/DoctorProfileHeader";
 import { BookingCalendar } from "@/app/components/doctor-detail/BookingCalendar";
 import { StickyBookingBar } from "@/app/components/doctor-detail/StickyBookingBar";
+import { getDoctorById, getDoctorIds } from "@/lib/doctors";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
-    // Mock generating params for id 1-6 for now
-    return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }, { id: '6' }];
+    return getDoctorIds().map((id) => ({ id }));
 }
 
-export default function DoctorDetailPage({ params }: { params: { id: string } }) {
+export default async function DoctorDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const doctor = getDoctorById(id);
+
+    if (!doctor) {
+        notFound();
+    }
+
     return (
         <div className="flex-grow w-full max-w-[960px] mx-auto px-4 py-8 pb-24 font-display">
-            <DoctorProfileHeader />
+            <DoctorProfileHeader doctor={doctor} />
             <BookingCalendar />
             <div className="h-20"></div>
-            <StickyBookingBar />
+            <StickyBookingBar doctorId={id} price={doctor.price} />
         </div>
     );
 }

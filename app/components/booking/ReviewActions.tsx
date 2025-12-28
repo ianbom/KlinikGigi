@@ -1,17 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
-export function ReviewActions() {
-    const router = useRouter();
+interface ReviewActionsProps {
+    doctorId: string;
+}
 
-    const handleConfirm = () => {
-        // In a real app, this would submit the booking
-        alert("Booking Confirmed!");
-        router.push("/"); // Redirect home for now
-    };
-
+export function ReviewActions({ doctorId }: ReviewActionsProps) {
     return (
         <div className="pt-2 space-y-6">
             {/* Checkbox */}
@@ -33,18 +28,17 @@ export function ReviewActions() {
             {/* Buttons */}
             <div className="flex flex-col-reverse sm:flex-row gap-4 pt-2">
                 <Link
-                    href="./"
+                    href={`/doctors/${doctorId}/booking/customer-data`}
                     className="flex-1 px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer"
                 >
                     Ubah Data
                 </Link>
-                <Link href={'/doctors/1/booking/success'}>
-                <button
-                    className="flex-[2] px-6 py-3 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                <Link
+                    href={`/doctors/${doctorId}/booking/success`}
+                    className="flex-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                     <span>Konfirmasi Booking</span>
                     <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                </button>
                 </Link>
             </div>
 

@@ -1,16 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
-export function CustomerDataForm() {
-    const router = useRouter();
+interface CustomerDataFormProps {
+    doctorId: string;
+}
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        router.push("review"); // Next step
-    };
-
+export function CustomerDataForm({ doctorId }: CustomerDataFormProps) {
     return (
         <div className="flex flex-col gap-6">
             {/* Page Heading */}
@@ -20,8 +16,8 @@ export function CustomerDataForm() {
             </div>
 
             {/* Form Fields */}
-            <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-                {/* Nama Lengkap */}
+            <form className="flex flex-col gap-6">
+                {/* Nama Lengkap & NIK */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="flex flex-col gap-2">
                         <label className="text-text-light text-sm font-medium" htmlFor="fullname">Nama Lengkap*</label>
@@ -30,10 +26,9 @@ export function CustomerDataForm() {
 
                     <div className="flex flex-col gap-2">
                         <label className="text-text-light text-sm font-medium" htmlFor="nik">NIK*</label>
-                        <input className="flex w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-base text-text-light placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary h-12 transition-shadow" id="fullname" placeholder="Masukkan NIK Anda sesuai KTP" type="text" required />
+                        <input className="flex w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-base text-text-light placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary h-12 transition-shadow" id="nik" placeholder="Masukkan NIK Anda sesuai KTP" type="text" required />
                     </div>
                 </div>
-                
 
                 {/* Nomor WhatsApp & Email Grid */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -65,12 +60,12 @@ export function CustomerDataForm() {
 
                 {/* CTA Button */}
                 <div className="mt-4 pt-4 border-t border-subtle-light flex justify-end">
-                    <Link href={'/doctors/1/booking/customer-data/review'}>
-                    
-                    <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-white font-bold transition-all hover:bg-primary-dark focus:ring-4 focus:ring-primary/20 md:w-auto cursor-pointer" type="submit">
+                    <Link
+                        href={`/doctors/${doctorId}/booking/customer-data/review`}
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-white font-bold transition-all hover:bg-primary-dark focus:ring-4 focus:ring-primary/20 md:w-auto cursor-pointer"
+                    >
                         <span>Lanjut ke Review</span>
                         <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                    </button>
                     </Link>
                 </div>
             </form>

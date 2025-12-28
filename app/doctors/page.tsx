@@ -3,108 +3,11 @@ import { DoctorCard } from "@/app/components/doctors/DoctorCard";
 import { FilterSidebar } from "@/app/components/doctors/FilterSidebar";
 import { Pagination } from "@/app/components/doctors/Pagination";
 import { FloatingWhatsApp } from "@/app/components/layout/FloatingWhatsApp";
-
-// Dummy Data matching the HTML content
-const doctors = [
-    {
-        id: 1,
-        name: "drg. Sarah Wijaya",
-        specialty: "Spesialis Kawat Gigi",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSqhKWAxFe25vN2yY0h5YHcFdzQX5M_Ayn7sKBRgueeTILkqH48pfDpxyMLsLDSKS1f77sl6XEPcek1b8vmKczbKmm5mILtFAClbPdDlL5rfgeA-W0wKuX70llL38cibW-2MJ1rBdQtsc3L-QNvXdlpGhbfLAmsPD3lW-x094CcMOAvIxgCidNcOvki7sMK14UOkRL2hKB-jq6ZfpjogXlnuMsq0Cpke0PgFXCR4gJWQXXs7pH6EB2zJhtrDXjrmfPBI1uIPBfgKv7",
-        rating: 4.9,
-        reviews: 128,
-        location: "Jakarta Selatan",
-        days: "Senin, Rabu, Jumat",
-        price: "Rp 350.000",
-        badge: {
-            text: "Ortodonti",
-            colorClass: "bg-blue-50 text-blue-700",
-            dotClass: "bg-green-500"
-        }
-    },
-    {
-        id: 2,
-        name: "drg. Budi Santoso",
-        specialty: "Spesialis Bedah Mulut",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDnFIPLxd4MPoX0Yv40h2fSotX4noV2mzPZf3op3byj-j4kEFUS9XGNZKgUaNQ8GrluyBsh2a8Lq-oJTUtJ0WrAwHfwTdVT5H_07E_6F03R8eSPCSpDYrOABMWuqMA0o8ZaVsW3HlqN3Mp6BH3-QdjKJ6je-4yxSD4rbF38J8wuxDR-VdDnFAk5kcE1G28q5MvCPvhWvpIxXBzdAG0haRxhyP6IGXNGbrpmwfhUiWomG-o1_9cMi-9nUt-wjIjZkJAIK-WWMVlxN1jC",
-        rating: 5.0,
-        reviews: 84,
-        location: "Jakarta Pusat",
-        days: "Selasa, Kamis",
-        price: "Rp 500.000",
-        badge: {
-            text: "Bedah Mulut",
-            colorClass: "bg-emerald-50 text-emerald-700",
-            dotClass: "bg-green-500"
-        }
-    },
-    {
-        id: 3,
-        name: "drg. Amanda Putri",
-        specialty: "Spesialis Gigi Anak",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBhcqKGp8Sbuh-4Dyp9Wn7FriIiXir-y4MefrRpAZgO-gA6zYJwzU6-HvVxW2aJvJYaUPXwSFs6mlg5OxBLL2ICiBTAeiHI7zEt_n5euRqPR4LMKphssBnBDyFLxsrc5TY9isqvepUedRoUg0eKOScUqte_AC8Qli4N2ySyfL2RbuFbe5rggOK7Z4lTfggq4Nu7sB7iSEIW6A57ZmjR4d1fD5_z0rcn_D4W8Qhcvflr56gkljqYResvvzH_iW-Zfs9RDIrQSKdqE9oP",
-        rating: 4.8,
-        reviews: 210,
-        location: "Tangerang Selatan",
-        days: "Senin - Jumat",
-        price: "Rp 200.000",
-        badge: {
-            text: "Pedodonti",
-            colorClass: "bg-pink-50 text-pink-700",
-            dotClass: "bg-gray-300" // Simulated inactive/away status from HTML (gray dot)
-        }
-    },
-    {
-        id: 4,
-        name: "drg. Kevin Tan",
-        specialty: "Dokter Gigi Umum",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMXaU5_JeMJwDVi0K0TFCYGxu-a3FOTn3CRL7x4g8-mQCu2uIM_B7-9lUols68mM_6W5iM8gZYFlh6S4DC3fff6693Mxf5eEvlDxbw_9pElL3FgIKnfOa2N7rwKvqWR8zbYKIo1rABa7zAhYuU_-gvagJgDoudFijpUbFYuzSTtEWiu6iGwSfdR1O1_-Ph8cR7RsP8LqO-qSduWCz3GtvmDyTnhqjti1YPY4CtBhsPMTG4iACTtdn8GXJFXzp9DE567JkIsIfPuphC",
-        rating: 4.7,
-        reviews: 56,
-        location: "Jakarta Selatan",
-        days: "Sabtu - Minggu",
-        price: "Rp 150.000",
-        badge: {
-            text: "Umum",
-            colorClass: "bg-gray-100 text-gray-700",
-            dotClass: "bg-green-500"
-        }
-    },
-    {
-        id: 5,
-        name: "drg. Linda Kurnia",
-        specialty: "Spesialis Konservasi Gigi",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAs_6drgCM2lE4JghvaELk-RYD6sz9qGOGPg7xrYSgo1-rk3F_nhivFScv1bxSptord82y3zLsYQFX1RDPqXluyTRouHdJ3FxPRjRjyxvGMSYpZhqlwIEgdO4Dr-n9TzuAPwSbByfg2DBj5ccJwvpZkTDxpj3-sP6ZGKsgPIXpqgbexegd97wbED0_XYD88lHc-qqoJI2fTsbXhai3rhGj-c3PuekX-FBp0jOATynGkcHJlj0rLmNz3yYuFp73b_VN9l_pD8uF_wsoG",
-        rating: 4.9,
-        reviews: 92,
-        location: "Jakarta Pusat",
-        days: "Senin - Kamis",
-        price: "Rp 400.000",
-        badge: {
-            text: "Konservasi",
-            colorClass: "bg-purple-50 text-purple-700",
-            dotClass: "bg-green-500"
-        }
-    },
-    {
-        id: 6,
-        name: "drg. Reza Pratama",
-        specialty: "Spesialis Kawat Gigi",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA0pruq4VvNYBhwufx6tkLTIXD2NuFmIJfwlP1SIVUF6OHNLttFzaDzO35wzff7MN64Ff2OTrgMG57Y9du9uItBarhe-MjU9W5LbPe3ewnfKHRpMFDvVnP6wiK-tQRxnJHMPJqdn1S_1U5MUC17FhxOH9ettpcK5Uy6J2Psrt5tKwOtG1VCd14VFyFVA6idedYHReWDKepMGDOJNjix-3MybsLRlEnBo6uszrayuQ_69fFLCoc4RGty47aXp_XmHVAz6lcfMNm0AeMI",
-        rating: 4.8,
-        reviews: 45,
-        location: "Tangerang Selatan",
-        days: "Jumat - Minggu",
-        price: "Rp 350.000",
-        badge: {
-            text: "Ortodonti",
-            colorClass: "bg-blue-50 text-blue-700",
-            dotClass: "bg-green-500"
-        }
-    }
-];
+import { getDoctors } from "@/lib/doctors";
 
 export default function DoctorPage() {
+    const doctors = getDoctors();
+
     return (
         <div className="flex-grow bg-background-light min-h-screen font-display">
             <div className="mx-auto max-w-[1280px] px-4 lg:px-8 py-6">

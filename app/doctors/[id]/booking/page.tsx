@@ -2,8 +2,12 @@ import { BookingHeader } from "@/app/components/booking/BookingHeader";
 import { BookingCalendarWidget } from "@/app/components/booking/BookingCalendarWidget";
 import { BookingTimeSlots } from "@/app/components/booking/BookingTimeSlots";
 import { BookingSummarySidebar } from "@/app/components/booking/BookingSummarySidebar";
+import { getDoctorById } from "@/lib/doctors";
 
-export default function BookingPage({ params }: { params: { id: string } }) {
+export default async function BookingPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const doctor = getDoctorById(id);
+
     return (
         <div className="flex-1 flex flex-col items-center py-8 px-4 md:px-10 lg:px-20 min-h-screen bg-background-light font-display">
             <div className="max-w-6xl w-full flex flex-col gap-8">
@@ -28,8 +32,8 @@ export default function BookingPage({ params }: { params: { id: string } }) {
                     </div>
 
                     {/* Right Column: Sticky Summary Sidebar */}
-                    <div className="w-full lg:w-[360px] flex-shrink-0 sticky top-28">
-                        <BookingSummarySidebar />
+                    <div className="w-full lg:w-[360px] shrink-0 sticky top-28">
+                        <BookingSummarySidebar doctorId={id} doctor={doctor} />
                     </div>
                 </div>
             </div>
